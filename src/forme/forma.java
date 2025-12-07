@@ -4,8 +4,10 @@
  */
 package forme;
 
+import baza.Konekcija;
 import controller.Controller;
 import java.util.List;
+import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Autor;
@@ -217,8 +219,9 @@ private Knjiga knjigaIzmena;
        }
         Zanr zanr = (Zanr) cmbZanr.getSelectedItem();
         Autor autor = (Autor) cmbAutori.getSelectedItem();
-        
-        Knjiga knjiga = new Knjiga(naziv, autor, isbn, godinaIzdanja, zanr);
+        Random rand = new Random();
+        int id = 101+rand.nextInt(Integer.MAX_VALUE-100);
+        Knjiga knjiga = new Knjiga(id, naziv, autor, isbn, godinaIzdanja, zanr);
         
         
         Controller.getInstance().dodajKnjigu(knjiga);
@@ -272,7 +275,7 @@ private Knjiga knjigaIzmena;
 
     private void popuniComboBox() {
         cmbAutori.removeAllItems();
-       List<Autor> autori = kontroler.getListaAutora();
+       List<Autor> autori = Controller.getInstance().getListaAutoraIzBaze();
        
        for(Autor a: autori){
            cmbAutori.addItem(a);

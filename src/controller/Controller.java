@@ -4,6 +4,7 @@
  */
 package controller;
 
+import baza.DBBroker;
 import java.util.ArrayList;
 import java.util.List;
 import model.Autor;
@@ -15,6 +16,7 @@ import model.Zanr;
  * @author ilija
  */
 public class Controller {
+    private DBBroker dbb;
     private List<Knjiga> listaKnjiga;
     private List<Autor> listaAutora;
     
@@ -31,7 +33,7 @@ public class Controller {
 
     //privatni kontroler se koristi za singleton pattern
     private Controller() {
-        Autor a1 = new Autor("Ivo", "Andric", 1892, "Biografija Ivo");
+        /*Autor a1 = new Autor("Ivo", "Andric", 1892, "Biografija Ivo");
         Autor a2 = new Autor("Stevo", "Andric", 1992, "Biografija Stevo");
         Autor a3 = new Autor("Darko", "Andric", 1692, "Biografija Darko");
     
@@ -48,7 +50,11 @@ public class Controller {
         
         listaAutora.add(a1);
         listaAutora.add(a2);
-        listaAutora.add(a3);
+        listaAutora.add(a3);*/
+        
+        
+        dbb = new DBBroker();
+        
     }
 
     public List<Knjiga> getListaKnjiga() {
@@ -67,13 +73,22 @@ public class Controller {
         this.listaAutora = listaAutora;
     }
 
-    public void obrisiKnjigu(int selektovaniRed) {
-        listaKnjiga.remove(selektovaniRed);
+    public void obrisiKnjigu(int id) {
+        dbb.obrisiKnjigu(id);
+        //listaKnjiga.remove(selektovaniRed);
     }
 
     public void dodajKnjigu(Knjiga knjiga) {
-        listaKnjiga.add(knjiga);
-        
+        //listaKnjiga.add(knjiga);
+        dbb.dodajKnjigu(knjiga);
+    }
+
+    public List<Knjiga> ucitajListuKnjiga() {
+       return dbb.ucitajListuKnjigaIzBaze();
+    }
+
+    public List<Autor> getListaAutoraIzBaze() {
+        return dbb.ucitajListuAutoraIzBaze();
     }
     
 }

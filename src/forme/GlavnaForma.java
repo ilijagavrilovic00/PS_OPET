@@ -22,8 +22,8 @@ public class GlavnaForma extends javax.swing.JFrame {
     public GlavnaForma() {
         initComponents();
         kontroler = Controller.getInstance();
-        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.getListaKnjiga());
-        
+        //ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.getListaKnjiga());
+        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitajListuKnjiga());
         tblKnjige.setModel(modelTabele);
     }
 
@@ -177,8 +177,10 @@ public class GlavnaForma extends javax.swing.JFrame {
         if(selektovaniRed==-1){
             JOptionPane.showMessageDialog(this, "Morate selektovati knjigu koju zelite obrisati", "Uputstvo", JOptionPane.INFORMATION_MESSAGE);
         }else {
+            ModelTabeleKnjige mtk = (ModelTabeleKnjige) tblKnjige.getModel();
+            int id = mtk.getListaKnjiga().get(selektovaniRed).getId();
             Controller kontroler = Controller.getInstance();
-            kontroler.obrisiKnjigu(selektovaniRed);
+            kontroler.obrisiKnjigu(id);
             
             //Azuriranje modela tabele
             osveziTabelu();
@@ -254,7 +256,10 @@ public class GlavnaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void osveziTabelu() {
-        ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) tblKnjige.getModel();
-        modelTabele.osveziTabelu();
+        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitajListuKnjiga());
+        
+        tblKnjige.setModel(modelTabele);
+// ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) tblKnjige.getModel();
+        //modelTabele.osveziTabelu();
     }
 }

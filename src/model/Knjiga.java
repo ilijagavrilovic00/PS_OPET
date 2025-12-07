@@ -9,6 +9,7 @@ package model;
  * @author ilija
  */
 public class Knjiga {
+    private int id;
     private String naziv;
     private Autor autor;
     private String ISBN;
@@ -25,6 +26,24 @@ public class Knjiga {
         this.godinaIzdavanja = godinaIzdavanja;
         this.zanr = zanr;
     }
+
+    public Knjiga(int id, String naziv, Autor autor, String ISBN, int godinaIzdavanja, Zanr zanr) {
+        this.id = id;
+        this.naziv = naziv;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.godinaIzdavanja = godinaIzdavanja;
+        this.zanr = zanr;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 
     public String getNaziv() {
         return naziv;
