@@ -125,5 +125,43 @@ public class DBBroker {
         }
         
     }
+
+    public boolean login(String username, String password) {
+        String upit = "Select * from user where username=? and password=?";
+        try {
+            PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+            return true;
+            }else{
+            return false;}
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public List<Knjiga> filtriraj2(String autor, String naslov) {
+String upit = "SELECT naslov, ime, prezime FROM knjiga k"
+        + " Join autor a on k.autorid=a.id where 1=1";
+    if(naslov!=null){
+    upit+="k.naslov=?";
+    }
+    if(autor!=null){
+        String[] podaci = autor.split(" ");
+        if(podaci[0]!=null){
+        upit+="AND a.ime=?";
+        }
+        if(podaci[1]!=null){
+        upit+="and a.prezime?";
+    }}
+    
+    return null;
+    }
+    
     
 }
